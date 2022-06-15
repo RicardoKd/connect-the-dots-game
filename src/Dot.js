@@ -19,7 +19,6 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
   // TODO:
   // MAYBE move this func to Board class (will it still be able to catch target???)
   onDotMouseDown(pointer, target) {
-    this.board.lastSelectedDot = target;
     this.board.scoreList.push(target);
   }
 
@@ -28,19 +27,20 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
   onDotMouseUp() {
     this.board.scene.points += this.board.scorePoints();
     this.board.scoreList = [];
-    this.board.lastSelectedDot = null;
     this.board.drawBoard();
     this.board.removeLines();
   }
 
   onMouseOverDot(pointer, target) {
-    if (this.board.lastSelectedDot === null) {
+    const scoreListSize = this.board.scoreList.length;
+    const lastSelectedDot = this.board.scoreList[scoreListSize - 1];
+    if (!scoreListSize) {
       return;
     }
 
     const currentDotPosition = {
-      i: this.board.lastSelectedDot.x,
-      j: this.board.lastSelectedDot.y,
+      i: lastSelectedDot.x,
+      j: lastSelectedDot.y,
     };
     const nextDotPosition = { i: target.x, j: target.y };
 
@@ -49,24 +49,17 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     }
 
     const targetIsPreviousDot =
-      target === this.board.scoreList[this.board.scoreList.length - 2];
+      target.id === this.board.scoreList[scoreListSize - 2].id;
 
     if (targetIsPreviousDot) {
       this.board.scoreList.pop();
-      let lastLineToRemove = this.board.lines.pop();
-      lastLineToRemove.destroy();
-      this.board.lastSelectedDot = target;
-    } else if (this.board.lastSelectedDot.fillColor === target.fillColor) {
-      this.board.lastSelectedDot = target;
-
+      this.board.drawLines(target.fillColor);
+    } else if (lastSelectedDot.fillColor === target.fillColor) {
       if (this.board.scoreList.indexOf(target) === -1) {
         this.board.scoreList.push(target);
       }
-    } else {
-      return;
+      this.board.drawLines(target.fillColor);
     }
-
-    this.board.drawLines(target.fillColor);
   }
 
   // TODO:

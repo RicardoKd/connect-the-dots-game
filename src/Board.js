@@ -1,13 +1,11 @@
 import AbstractFactory from "./AbstractFactory";
 import Line from "./Line";
+import TweensManager from "./Tweens";
 import {
   BOARD_DIMENSIONS,
   CANVAS_OFFSET,
-  ANIMATION_DURATION_MS,
   DISTANCE_BETWEEN_DOTS,
 } from "./Play.fixtures";
-import TweensManager from "./Tweens";
-import Tweens from "./Tweens";
 
 export default class Board {
   constructor(scene) {
@@ -15,18 +13,16 @@ export default class Board {
     this.boardWidth = BOARD_DIMENSIONS.WIDTH;
     this.boardHeight = BOARD_DIMENSIONS.HEIGHT;
     this.distanceBetweenDots = DISTANCE_BETWEEN_DOTS;
-    this.animationDuration = ANIMATION_DURATION_MS;
     this.canvasOffset = { ...CANVAS_OFFSET };
 
     this.board = [];
-    this.idCount = 0;
-    this.lastSelectedDot = null;
     this.scoreList = [];
 
     this.lines = [];
 
     this.gameObjectFactory = new AbstractFactory(this);
-    // this.on("pointerup", this.onDotMouseUp, this);
+    // document.addEventListener("mouseup", this.onDotMouseUp);
+    // scene.on("pointerup", this.onDotMouseUp, this);
   }
 
   initialize() {
@@ -86,6 +82,8 @@ export default class Board {
   }
 
   drawLines(lineColor) {
+    this.removeLines();
+    this.lines = [];
     let uniqueDots = new Set(this.scoreList);
     let uniqueDotsArray = [...uniqueDots];
 
