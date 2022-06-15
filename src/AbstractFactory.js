@@ -1,5 +1,6 @@
-import Dot from "./Dot";
-import Line from "./Line";
+import Dot from "./gameObjects/Dot";
+import Line from "./gameObjects/Line";
+import { LINE_WIDTH } from "./Game.fixtures";
 
 export default class AbstractFactory {
   constructor(board) {
@@ -8,7 +9,7 @@ export default class AbstractFactory {
   }
 
   createDot() {
-    let dot = new Dot(this.board);
+    const dot = new Dot(this.board);
     dot.id = this.idCount;
     this.idCount++;
 
@@ -31,7 +32,11 @@ export default class AbstractFactory {
     return dotMatrix;
   }
 
-  createLine() {
+  createLine(color, x1, y1, x2, y2) {
+    const line = new Line(this.board, color);
+    line.setLineWidth(LINE_WIDTH);
+    line.setTo(x1, y1, x2, y2);
 
+    return line;
   }
 }

@@ -1,11 +1,10 @@
 import AbstractFactory from "./AbstractFactory";
-import Line from "./Line";
-import TweensManager from "./Tweens";
+import TweensManager from "./animations/Tweens";
 import {
   BOARD_DIMENSIONS,
   CANVAS_OFFSET,
   DISTANCE_BETWEEN_DOTS,
-} from "./Play.fixtures";
+} from "./Game.fixtures";
 
 export default class Board {
   constructor(scene) {
@@ -36,11 +35,12 @@ export default class Board {
 
   scorePoints() {
     let listIds = new Set();
+
     this.scoreList.forEach((dot) => {
       listIds.add(dot.id);
     });
 
-    if (listIds.size === 1) {
+    if (listIds.size <= 1) {
       return 0;
     }
 
@@ -83,17 +83,18 @@ export default class Board {
 
   drawLines(lineColor) {
     this.removeLines();
-    this.lines = [];
-    let uniqueDots = new Set(this.scoreList);
-    let uniqueDotsArray = [...uniqueDots];
 
-    for (let i = 0; i < uniqueDotsArray.length - 1; i++) {
-      let startDot = uniqueDotsArray[i];
-      let endDot = uniqueDotsArray[i + 1];
-      let line = new Line(this.scene, lineColor);
-      line.setLineWidth(4);
+    for (let i = 0; i < this.scoreList.length - 1; i++) {
+      let startDot = this.scoreList[i];
+      let endDot = this.scoreList[i + 1];
+      let line = this.gameObjectFactory.createLine(
+        lineColor,
+        startDot.x + 3,
+        startDot.y + 2,
+        endDot.x + 3,
+        endDot.y + 2
+      );
 
-      line.setTo(startDot.x + 3, startDot.y + 2, endDot.x + 3, endDot.y + 2);
       this.lines.push(line);
       this.scene.add.existing(line);
     }
@@ -103,5 +104,7 @@ export default class Board {
     this.lines.forEach((line) => {
       line.destroy();
     });
+
+    this.lines = [];
   }
 }
