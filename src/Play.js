@@ -2,7 +2,7 @@ import Board from "./Board";
 export default class Play extends Phaser.Scene {
   constructor() {
     super();
-    this.points = 0;
+    this.points = 0; // FIXME: Does this thingy has to be here or in Board.js ???
   }
 
   create() {

@@ -6,6 +6,8 @@ import {
   ANIMATION_DURATION_MS,
   DISTANCE_BETWEEN_DOTS,
 } from "./Play.fixtures";
+import TweensManager from "./Tweens";
+import Tweens from "./Tweens";
 
 export default class Board {
   constructor(scene) {
@@ -24,6 +26,7 @@ export default class Board {
     this.lines = [];
 
     this.gameObjectFactory = new AbstractFactory(this);
+    // this.on("pointerup", this.onDotMouseUp, this);
   }
 
   initialize() {
@@ -64,38 +67,18 @@ export default class Board {
   drawBoard() {
     for (let i = 0; i < this.boardWidth; i++) {
       for (let j = 0; j < this.boardHeight; j++) {
-        let finalX = i * this.distanceBetweenDots + this.canvasOffset.X;
+        let finalX = this.canvasOffset.X + i * this.distanceBetweenDots;
         let finalY = this.canvasOffset.Y - j * this.distanceBetweenDots;
         let dot = this.board[i][j];
 
-        const XYPositionIsNotCorrect = dot.x !== finalX || dot.y !== finalY;
+        const tweensManager = new TweensManager(dot, finalX, finalY);
 
         if (dot.x === finalX) {
-          this.scene.tweens.add({
-            targets: [dot],
-            duration: this.animationDuration,
-            y: {
-              getStart: () => dot.y,
-              getEnd: () => finalY,
-            },
-            ease: Phaser.Math.Easing.Cubic,
-          });
-        } else if (XYPositionIsNotCorrect) {
-          this.scene.tweens.add({
-            targets: [dot],
-            duration: this.animationDuration,
-            x: {
-              getStart: () => finalX,
-              getEnd: () => finalX,
-            },
-            y: {
-              getStart: () =>
-                this.canvasOffset.Y -
-                this.distanceBetweenDots * this.boardHeight,
-              getEnd: () => finalY,
-            },
-            ease: Phaser.Math.Easing.Cubic,
-          });
+          this.scene.tweens.add(tweensManager.getSameXPositionTweenConfig());
+        } else if (dot.y !== finalY) {
+          this.scene.tweens.add(
+            tweensManager.getXYPositionIsNotCorrectTweenConfig()
+          );
           this.scene.add.existing(dot);
         }
       }

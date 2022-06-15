@@ -16,11 +16,15 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     board.scene.input.on("gameobjectdown", this.onDotMouseDown, this);
   }
 
+  // TODO:
+  // MAYBE move this func to Board class (will it still be able to catch target???)
   onDotMouseDown(pointer, target) {
     this.board.lastSelectedDot = target;
     this.board.scoreList.push(target);
   }
 
+  // TODO:
+  // move this func to Board class
   onDotMouseUp() {
     this.board.scene.points += this.board.scorePoints();
     this.board.scoreList = [];
@@ -41,11 +45,8 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     const nextDotPosition = { i: target.x, j: target.y };
 
     if (this.dotsAreNotAdjacent(currentDotPosition, nextDotPosition)) {
-      console.log("dotsAreNotAdjacent");
       return;
     }
-
-    console.log("object");
 
     const targetIsPreviousDot =
       target === this.board.scoreList[this.board.scoreList.length - 2];
@@ -68,6 +69,8 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     this.board.drawLines(target.fillColor);
   }
 
+  // TODO:
+  // Refactor this func so as to use it with one parameter)
   dotsAreNotAdjacent(firstDotPosition, secondDotPosition) {
     if (
       secondDotPosition.i === firstDotPosition.i &&
