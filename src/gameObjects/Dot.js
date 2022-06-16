@@ -11,7 +11,6 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     this.circleSize = CIRCLE_SIZE; // not used
     this.distanceBetweenDots = DISTANCE_BETWEEN_DOTS;
 
-    this.on("pointerup", this.onDotMouseUp, this);
     board.scene.input.on("gameobjectover", this.onMouseOverDot, this);
     board.scene.input.on("gameobjectdown", this.onDotMouseDown, this);
   }
@@ -20,15 +19,6 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
   // MAYBE move this func to Board class (will it still be able to catch target???)
   onDotMouseDown(pointer, target) {
     this.board.scoreList.push(target);
-  }
-
-  // TODO:
-  // move this func to Board class
-  onDotMouseUp() {
-    this.board.scene.points += this.board.scorePoints();
-    this.board.scoreList = [];
-    this.board.drawBoard();
-    this.board.removeLines();
   }
 
   onMouseOverDot(pointer, target) {
@@ -57,7 +47,7 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
       this.board.scoreList.pop();
       this.board.drawLines(target.fillColor);
     } else if (lastSelectedDot.fillColor === target.fillColor) {
-      if (this.board.scoreList.indexOf(target) === -1) {
+      if (!this.board.scoreList.includes(target)) {
         this.board.scoreList.push(target);
       }
 

@@ -13,15 +13,14 @@ export default class Board {
     this.boardHeight = BOARD_DIMENSIONS.HEIGHT;
     this.distanceBetweenDots = DISTANCE_BETWEEN_DOTS;
     this.canvasOffset = { ...CANVAS_OFFSET };
-
-    this.board = [];
     this.scoreList = [];
-
+    this.board = [];
     this.lines = [];
 
     this.gameObjectFactory = new AbstractFactory(this);
-    // document.addEventListener("mouseup", this.onDotMouseUp);
-    // scene.on("pointerup", this.onDotMouseUp, this);
+
+    const canvasElement = document.querySelector("canvas");
+    canvasElement.addEventListener("mouseup", this.onMouseUp);
   }
 
   initialize() {
@@ -80,6 +79,13 @@ export default class Board {
       }
     }
   }
+
+  onMouseUp = () => {
+    this.scene.points += this.scorePoints();
+    this.scoreList = [];
+    this.drawBoard();
+    this.removeLines();
+  };
 
   drawLines(lineColor) {
     this.removeLines();
