@@ -19,7 +19,7 @@ export default class Board {
 
     this.gameObjectFactory = new AbstractFactory(this);
 
-    const canvasElement = document.querySelector("canvas");
+    const canvasElement = document.querySelector("body");
     canvasElement.addEventListener("pointerup", this.onPointerUp);
   }
 
