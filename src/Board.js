@@ -20,7 +20,7 @@ export default class Board {
     this.gameObjectFactory = new AbstractFactory(this);
 
     const canvasElement = document.querySelector("canvas");
-    canvasElement.addEventListener("mouseup", this.onMouseUp);
+    canvasElement.addEventListener("pointerup", this.onPointerUp);
   }
 
   initialize() {
@@ -80,7 +80,7 @@ export default class Board {
     }
   }
 
-  onMouseUp = () => {
+  onPointerUp = () => {
     this.scene.points += this.scorePoints();
     this.scoreList = [];
     this.drawBoard();

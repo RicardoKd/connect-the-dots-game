@@ -11,8 +11,6 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     this.setInteractive();
     this.board = board;
     this.spriteNum = colorNum;
-    this.colors = [...COLORS]; // not used
-    this.circleSize = CIRCLE_SIZE; // not used
     this.distanceBetweenDots = DISTANCE_BETWEEN_DOTS;
 
     board.scene.input.on("gameobjectover", this.onMouseOverDot, this);
