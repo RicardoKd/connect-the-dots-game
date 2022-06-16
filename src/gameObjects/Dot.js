@@ -1,4 +1,8 @@
-import { COLORS, CIRCLE_SIZE, DISTANCE_BETWEEN_DOTS } from "../Game.fixtures";
+import {
+  COLORS,
+  CIRCLE_SIZE,
+  DISTANCE_BETWEEN_DOTS,
+} from "../Game.fixtures.js";
 
 export default class Dot extends Phaser.GameObjects.Ellipse {
   constructor(board) {

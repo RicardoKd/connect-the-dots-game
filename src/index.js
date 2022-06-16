@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import Play from "./Play";
-import css from "./css/main.css"
+import Play from "./Play.js";
+import css from "./css/main.css";
 
 const config = {
   type: Phaser.AUTO,

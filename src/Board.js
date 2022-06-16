@@ -1,10 +1,10 @@
-import AbstractFactory from "./AbstractFactory";
-import TweensManager from "./animations/Tweens";
+import AbstractFactory from "./AbstractFactory.js";
+import TweensManager from "./animations/Tweens.js";
 import {
   BOARD_DIMENSIONS,
   CANVAS_OFFSET,
   DISTANCE_BETWEEN_DOTS,
-} from "./Game.fixtures";
+} from "./Game.fixtures.js";
 
 export default class Board {
   constructor(scene) {
