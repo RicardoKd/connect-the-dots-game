@@ -6,7 +6,7 @@ export default class Play extends Phaser.Scene {
   }
 
   create() {
-    this.scoreCountText = this.add.text(20, 16, `Points: ${this.points}`);
+    this.scoreCountText = this.add.text(7, 0, `Points: ${this.points}`);
     let board = new Board(this);
     board.initialize();
   }

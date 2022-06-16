@@ -19,8 +19,6 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     board.scene.input.on("gameobjectdown", this.onDotMouseDown, this);
   }
 
-  // TODO:
-  // MAYBE move this func to Board class (will it still be able to catch target???)
   onDotMouseDown(pointer, target) {
     this.board.scoreList.push(target);
   }

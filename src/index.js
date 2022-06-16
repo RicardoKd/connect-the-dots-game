@@ -1,12 +1,12 @@
 import Phaser from "phaser";
 import Play from "./Play.js";
-import css from "./css/main.css";
+import css from "./css/main.css"
 
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: 800,
-  height: 600,
+  width: 335,
+  height: 350,
   scene: Play,
   autoCenter: Phaser.Scale.CENTER_BOTH,
 };

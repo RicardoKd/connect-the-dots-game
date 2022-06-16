@@ -4,8 +4,8 @@ const BOARD_DIMENSIONS = {
 };
 
 const CANVAS_OFFSET = {
-  X: 250,
-  Y: 430,
+  X: 20,
+  Y: 320,
 };
 
 const COLORS = [0xff0000, 0x971cb5, 0xffff00, 0x00ffff, 0x00ff00];
