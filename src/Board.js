@@ -4,7 +4,7 @@ import {
   BOARD_DIMENSIONS,
   CANVAS_OFFSET,
   DISTANCE_BETWEEN_DOTS,
-} from "./Game.fixtures.js";
+} from "./constants.js";
 
 export default class Board {
   constructor(scene) {
@@ -20,7 +20,7 @@ export default class Board {
     this.gameObjectFactory = new AbstractFactory(this);
 
     const canvasElement = document.querySelector("body");
-    canvasElement.addEventListener("pointerup", this.onPointerUp);
+    canvasElement.addEventListener("pointerup", this.#onPointerUp);
   }
 
   initialize() {
@@ -29,10 +29,10 @@ export default class Board {
       this.boardHeight
     );
 
-    this.drawBoard();
+    this.#drawBoard();
   }
 
-  scorePoints() {
+  #scorePoints() {
     let listIds = new Set();
 
     this.scoreList.forEach((dot) => {
@@ -59,7 +59,7 @@ export default class Board {
     return listIds.size;
   }
 
-  drawBoard() {
+  #drawBoard() {
     for (let i = 0; i < this.boardWidth; i++) {
       for (let j = 0; j < this.boardHeight; j++) {
         let finalX = this.canvasOffset.X + i * this.distanceBetweenDots;
@@ -80,15 +80,15 @@ export default class Board {
     }
   }
 
-  onPointerUp = () => {
-    this.scene.points += this.scorePoints();
+  #onPointerUp = () => {
+    this.scene.points += this.#scorePoints();
     this.scoreList = [];
-    this.drawBoard();
-    this.removeLines();
+    this.#drawBoard();
+    this.#removeLines();
   };
 
   drawLines(lineColor) {
-    this.removeLines();
+    this.#removeLines();
 
     for (let i = 0; i < this.scoreList.length - 1; i++) {
       let startDot = this.scoreList[i];
@@ -106,7 +106,7 @@ export default class Board {
     }
   }
 
-  removeLines() {
+  #removeLines() {
     this.lines.forEach((line) => {
       line.destroy();
     });

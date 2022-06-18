@@ -1,7 +1,5 @@
-## Available Commands
+### To start development evnironment
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm start` | Build project and open web server running project |
-| `npm run build` | Builds code bundle with production settings (minification, uglification, etc..) |
+1. Use Node v16.14.0
+2. `npm i`
+3. `npm start`

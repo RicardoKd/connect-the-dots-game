@@ -1,6 +1,6 @@
 import Dot from "./gameObjects/Dot.js";
 import Line from "./gameObjects/Line.js";
-import { LINE_WIDTH } from "./Game.fixtures.js";
+import { LINE_WIDTH } from "./constants.js";
 
 export default class AbstractFactory {
   constructor(board) {

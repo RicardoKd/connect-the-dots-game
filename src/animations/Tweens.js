@@ -3,7 +3,7 @@ import {
   ANIMATION_DURATION_MS,
   DISTANCE_BETWEEN_DOTS,
   BOARD_DIMENSIONS,
-} from "../Game.fixtures.js";
+} from "../constants.js";
 
 export default class TweensManager {
   constructor(dot, finalX, finalY) {

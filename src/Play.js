@@ -1,4 +1,6 @@
 import Board from "./Board.js";
+import { SCORE_TEXT_POSITION } from "./constants.js";
+
 export default class Play extends Phaser.Scene {
   constructor() {
     super();
@@ -6,7 +8,11 @@ export default class Play extends Phaser.Scene {
   }
 
   create() {
-    this.scoreCountText = this.add.text(7, 0, `Points: ${this.points}`);
+    this.scoreCountText = this.add.text(
+      SCORE_TEXT_POSITION.X,
+      SCORE_TEXT_POSITION.Y,
+      `Points: ${this.points}`
+    );
     let board = new Board(this);
     board.initialize();
   }

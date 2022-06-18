@@ -2,7 +2,7 @@ import {
   COLORS,
   CIRCLE_SIZE,
   DISTANCE_BETWEEN_DOTS,
-} from "../Game.fixtures.js";
+} from "../constants.js";
 
 export default class Dot extends Phaser.GameObjects.Ellipse {
   constructor(board) {
@@ -13,15 +13,15 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     this.spriteNum = colorNum;
     this.distanceBetweenDots = DISTANCE_BETWEEN_DOTS;
 
-    board.scene.input.on("gameobjectover", this.onMouseOverDot, this);
-    board.scene.input.on("gameobjectdown", this.onDotMouseDown, this);
+    board.scene.input.on("gameobjectover", this.#onMouseOverDot, this);
+    board.scene.input.on("gameobjectdown", this.#onDotMouseDown, this);
   }
 
-  onDotMouseDown(pointer, target) {
+  #onDotMouseDown(pointer, target) {
     this.board.scoreList.push(target);
   }
 
-  onMouseOverDot(pointer, target) {
+  #onMouseOverDot(pointer, target) {
     const scoreListSize = this.board.scoreList.length;
     const lastSelectedDot = this.board.scoreList[scoreListSize - 1];
 
@@ -36,7 +36,7 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
 
     const nextDotPosition = { i: target.x, j: target.y };
 
-    if (this.dotsAreNotAdjacent(currentDotPosition, nextDotPosition)) {
+    if (this.#dotsAreNotAdjacent(currentDotPosition, nextDotPosition)) {
       return;
     }
 
@@ -55,7 +55,7 @@ export default class Dot extends Phaser.GameObjects.Ellipse {
     }
   }
 
-  dotsAreNotAdjacent(firstDotPosition, secondDotPosition) {
+  #dotsAreNotAdjacent(firstDotPosition, secondDotPosition) {
     if (
       secondDotPosition.i === firstDotPosition.i &&
       (secondDotPosition.j === firstDotPosition.j - this.distanceBetweenDots ||
